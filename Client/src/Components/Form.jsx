@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "./Form.css";
-import img from "../Images/contact2.jpg";
+import img from "../Images/docimg.jpg";
 import AudioCard from "./AudioCard";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -42,7 +42,11 @@ const [audios, setAudios]=useState([]);
       toast.error("☹️ Please Fill up the Empty Fields")
       return;
     }
-    
+    if(payload.age>110)
+    {
+      toast.error("Please enter a valid age");
+      return;
+    }
     formData.append('doctor', payload.doctor);
     formData.append('patient', payload.patient);
     formData.append('age', payload.age);
@@ -107,9 +111,11 @@ const [audios, setAudios]=useState([]);
               <input
                 class="input-box"
                 style={{ width: "100%" }}
-                type="text"
+                type="number"
                 placeholder="21"
                 name="age"
+                min='0'
+                max='100'
                 onChange={handleFormChange}
               ></input>
             </div>

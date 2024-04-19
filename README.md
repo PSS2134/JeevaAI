@@ -1,10 +1,10 @@
 <h1 align="center" id="title">Assignment</h1>
 
-<p align="center"><img src="https://socialify.git.ci/PSS2134/JeevaAI/image?font=Raleway&amp;language=1&amp;name=1&amp;owner=1&amp;theme=Light" alt="project-image"></p>
+![Screenshot (217)](https://github.com/PSS2134/JeevaAI/assets/101321904/c8efdd8d-d248-49c6-8c67-1bc435685d87)
 
 <p id="description">The Sound Data Uploader is a web application designed to facilitate the upload of sound data along with associated information such as doctor's name patient's name age and date. The uploaded sound data is stored in MongoDB and can be accessed from <b>Audios Section </b>below the Form</p>
 
-![Screenshot 2024-04-20 000749](https://github.com/PSS2134/JeevaAI/assets/101321904/a089cb8d-88eb-45a3-a01a-73a1bc375b45)
+
 
 ![Screenshot 2024-04-20 000803](https://github.com/PSS2134/JeevaAI/assets/101321904/29456a99-f91c-4d95-8e76-3f4e4a87b034)
 

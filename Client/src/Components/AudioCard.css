@@ -1,0 +1,27 @@
+.audiocard{
+  
+    width: 60%;
+    background-color: black;
+padding: 2vh;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgb(39, 39, 39);
+    margin: 2vh auto;
+    max-height: max-content;
+    
+}
+.audiocard-flexbox{
+    display: flex;
+    justify-content: space-around;
+    padding: 2vh;
+}
+.audiocard-content{
+    font-size: 1.3rem;
+    margin: 3vh 0;
+    font-weight: 500;
+    color: white;
+
+}
+.audiocard-audio-element{
+    display: block;
+    margin: 2vh auto;
+}

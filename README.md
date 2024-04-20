@@ -22,18 +22,18 @@ git clone https://github.com/PSS2134/JeevaAI.git
 ```
 npm install
 ```
+<p>3. Start Backend Server</p>
 
-<p>3. Now start the frontend server</p>
+```
+npm start
+```
+
+<p>4. Now start the frontend server</p>
 
 ```
 npm start
 ```
 
-<p>4. Start Backend Server</p>
-
-```
-npm start
-```
 
   
   
@@ -41,4 +41,5 @@ npm start
 
 Technologies used in the project:
 
-*   MERN
+1.   MERN
+2.   Multery + GridFS for Audio File Storage

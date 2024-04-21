@@ -4,9 +4,12 @@
 
 <p id="description">The Sound Data Uploader is a web application designed to facilitate the upload of sound data along with associated information such as doctor's name patient's name age and date. The uploaded sound data is stored in MongoDB and can be accessed from <b>Audios Section </b>below the Form</p>
 
+![Screenshot (218)](https://github.com/PSS2134/JeevaAI/assets/101321904/aef61646-cf7f-4d16-a1b6-c7b53966ff09)
 
 
-![Screenshot 2024-04-20 000803](https://github.com/PSS2134/JeevaAI/assets/101321904/29456a99-f91c-4d95-8e76-3f4e4a87b034)
+<h2>Demo</h2>
+[screen-capture.webm](https://github.com/PSS2134/JeevaAI/assets/101321904/ab2da97f-b9c2-47fa-a0b1-f88caa468a82)
+
 
 
 <h2>🛠️ Installation Steps:</h2>

@@ -7,6 +7,9 @@
 ![Screenshot (218)](https://github.com/PSS2134/JeevaAI/assets/101321904/aef61646-cf7f-4d16-a1b6-c7b53966ff09)
 
 
+<h2>Demo</h2>
+[screen-capture.webm](https://github.com/PSS2134/JeevaAI/assets/101321904/ab2da97f-b9c2-47fa-a0b1-f88caa468a82)
+
 
 
 <h2>🛠️ Installation Steps:</h2>

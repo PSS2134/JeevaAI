@@ -1,27 +1,126 @@
-.audiocard{
-  
+.audiocard {
+
     width: 60%;
     background-color: black;
-padding: 2vh;
+    padding: 1vh;
     border-radius: 10px;
     box-shadow: 4px 4px 4px rgb(39, 39, 39);
     margin: 2vh auto;
     max-height: max-content;
-    
+
 }
-.audiocard-flexbox{
+
+.audiocard-flexbox {
     display: flex;
     justify-content: space-around;
-    padding: 2vh;
+    padding: 1vh;
 }
-.audiocard-content{
+
+.audiocard-content {
     font-size: 1.3rem;
-    margin: 3vh 0;
+    margin: 2.5vh 0;
     font-weight: 500;
     color: white;
 
 }
-.audiocard-audio-element{
+
+.audiocard-audio-element {
     display: block;
-    margin: 2vh auto;
+    margin: 1vh auto;
+}
+
+
+/************************ Custom Audio Player Styles *****************/
+
+.audio-player-box {
+    padding: 1rem 0;
+    color: rgb(244, 241, 241);
+    width: 100%;
+}
+
+.audio-player-progress-bar-box {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.audio-player-progress-bar {
+    min-width: 100%;
+    background-color: rgba(133, 130, 130, 0.781);
+    height: 5px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.audio-player-progress-fill {
+    width: 0;
+    height: 100%;
+    background-color: rgb(37, 190, 7);
+    border-radius: 30px;
+}
+
+.audio-player-volume-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+}
+
+.audio-player-volume-bar {
+    min-width: 100%;
+    background-color: rgba(133, 130, 130, 0.781);
+    height: 5px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.audio-player-volume-fill {
+    width: 0;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+
+
+}
+
+.ctrl-icons {
+    font-size: 1.5rem;
+    margin: 4vh 8vh;
+    cursor: pointer;
+}
+
+.download-icon {
+    margin: 4vh 0;
+    position: absolute;
+    right: 1vh;
+}
+
+.ctrl-icons:hover {
+    color: white;
+}
+
+.playpause {
+    font-size: 4rem;
+
+}
+
+a {
+    color: #fff;
+}
+
+a:visited {
+    color: #fff;
+}
+
+.audio-current-time {
+    position: absolute;
+    left: 18vh;
+    margin-top: 4vh;
 }

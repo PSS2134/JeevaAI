@@ -69,12 +69,17 @@
     border-radius:5px ;
     cursor: pointer;
   }
+
   .suggest-btn:active{
     box-shadow: none;
   }
   .suggest-btn:hover{
     background-color: #a7daff;
     color:#3559E0 ;
+  }
+  .suggest-btn:disabled{
+    background-color: #a7daff;
+    box-shadow: none;
   }
   .banner-img-suggest{
     width:45%;

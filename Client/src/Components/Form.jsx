@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Form.css";
 import img from "../Images/docimg.jpg";
 import AudioCard from "./AudioCard";
@@ -7,15 +7,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
-const [audios, setAudios]=useState([]);
-  
+  const [audios, setAudios] = useState([]);
+  const submitbtn = useRef(null);
   useEffect(() => {
-    fetch('http://localhost:5000/tracks/details').then(res=>res.json()).
-    then(data=>{
-      console.log(data);
-       setAudios(data);
-    })
-  });
+    fetch("http://localhost:5000/tracks/details")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAudios(data);
+      });
+  }, []);
 
   const [payload, setPayload] = useState({
     doctor: "",
@@ -23,55 +24,62 @@ const [audios, setAudios]=useState([]);
     age: "",
     date: "",
   });
+  const formRef = useRef();
   const handleFormChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
-    if(name!="file")
-    {
+    if (name != "file") {
       setPayload({ ...payload, [name]: value });
     }
-    
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    const file=document.getElementById('audio')
+    const file = document.getElementById("audio");
     // console.log(payload);
-    if(!payload.doctor || !payload.patient || !payload.age||!payload.date||!file.files[0])
-    {
-      toast.error("☹️ Please Fill up the Empty Fields")
+    if (
+      !payload.doctor ||
+      !payload.patient ||
+      !payload.age ||
+      !payload.date ||
+      !file.files[0]
+    ) {
+      toast.error("☹️ Please Fill up the Empty Fields");
       return;
     }
-    if(payload.age>110)
-    {
+    if (payload.age > 110) {
       toast.error("Please enter a valid age");
       return;
     }
-    formData.append('doctor', payload.doctor);
-    formData.append('patient', payload.patient);
-    formData.append('age', payload.age);
-    formData.append('date', payload.date);
-    
-    formData.append('audio', file.files[0]);
-    
+    submitbtn.current.setAttribute("disabled", true);
+    submitbtn.current.innerHTML = "Please Hold On...";
+    formData.append("doctor", payload.doctor);
+    formData.append("patient", payload.patient);
+    formData.append("age", payload.age);
+    formData.append("date", payload.date);
+
+    formData.append("audio", file.files[0]);
+
     console.log(...formData);
-  
+
     try {
-      const res = await fetch('http://localhost:5000/tracks', {
-        method: 'POST',
+      const res = await fetch("http://localhost:5000/tracks", {
+        method: "POST",
         body: formData,
       });
       const data = await res.json();
-      console.log(data); // log response from server
+      console.log(data);
       window.location.reload();
+      submitbtn.current.setAttribute("disabled", false);
+      submitbtn.current.innerHTML = "Submit";
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-  
+
   return (
     <div>
-      <div class="modal-box">
+      <div class="modal-box" ref={formRef}>
         <img class="banner-img-suggest" src={img}></img>
 
         <div class="modal-div">
@@ -114,8 +122,8 @@ const [audios, setAudios]=useState([]);
                 type="number"
                 placeholder="21"
                 name="age"
-                min='0'
-                max='100'
+                min="0"
+                max="100"
                 onChange={handleFormChange}
               ></input>
             </div>
@@ -143,33 +151,38 @@ const [audios, setAudios]=useState([]);
               id="audio"
               accept=".mp3,audio/*"
               name="file"
-              onChange={(e)=>{
-                setPayload({...payload,file:e.target.files[0]});
+              onChange={(e) => {
+                setPayload({ ...payload, file: e.target.files[0] });
               }}
             />
           </div>
 
           <button
-          type="submit"
+            type="submit"
             class="suggest-btn"
             id="send_button"
             onClick={handleFormSubmit}
-           
+            ref={submitbtn}
           >
             Submit
           </button>
         </div>
-
-        
       </div>
-      <div >
-          <p className="audio-header">Audios</p>
-          {audios.length && audios.toReversed().map((single)=>{
-          return (
-            <AudioCard doc={single.doctor} pat={single.patient} age={single.age} date={single.date} id={single.fileId}/>
-          )
-         })}
-        </div>
+      <div>
+        <p className="audio-header">Audios</p>
+        {audios.length &&
+          audios.toReversed().map((single) => {
+            return (
+              <AudioCard
+                doc={single.doctor}
+                pat={single.patient}
+                age={single.age}
+                date={single.date}
+                id={single.fileId}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 };

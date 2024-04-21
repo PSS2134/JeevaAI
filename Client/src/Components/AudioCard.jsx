@@ -5,28 +5,37 @@ import { FaCirclePause } from "react-icons/fa6";
 import { AiFillSound } from "react-icons/ai";
 import { IoVolumeMute } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AudioCard = ({ doc, pat, age, date, id }) => {
   const [isplaying, setisplaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState({});
+  const [currentSong, setCurrentSong] = useState({ progress: "0" });
   const [isMute, setIsMute] = useState(false);
   const [volumeProgress, setVolumeProgress] = useState(100);
+  const [disable, setDisable] = useState(true);
   const [min, setMin] = useState("00");
   const [sec, setSec] = useState("00");
   const audioElem = useRef();
 
   useEffect(() => {
-    if (isplaying) {
-      audioElem.current.play();
-    } else {
-      audioElem.current.pause();
-    }
-    if (isMute) {
-      audioElem.current.volume = 0;
-      setVolumeProgress(0);
-    } else {
-      audioElem.current.volume = 1;
-      setVolumeProgress(100);
-    }
+    const func = async () => {
+      await audioElem.current.play();
+      setDisable(false);
+      if (isplaying) {
+        audioElem.current.play();
+      } else {
+        await audioElem.current.play();
+        audioElem.current.pause();
+      }
+      if (isMute) {
+        audioElem.current.volume = 0;
+        setVolumeProgress(0);
+      } else {
+        audioElem.current.volume = 1;
+        setVolumeProgress(100);
+      }
+    };
+    func();
   }, [isplaying, isMute]);
 
   const onPlaying = () => {
@@ -45,7 +54,6 @@ const AudioCard = ({ doc, pat, age, date, id }) => {
       audioElem.current.duration == Infinity ||
       isNaN(audioElem.current.duration)
     ) {
-      setCurrentSong({ progress: "99" });
       return;
     }
 
@@ -54,7 +62,15 @@ const AudioCard = ({ doc, pat, age, date, id }) => {
 
   const clickRef = useRef();
   const volref = useRef();
-  const PlayPause = () => {
+  const pauseRef = useRef();
+  const PlayPause = async () => {
+    if (
+      audioElem.current.duration == Infinity ||
+      isNaN(audioElem.current.duration)
+    ) {
+      setCurrentSong({ progress: "99" });
+    }
+    // console.log(isplaying)
     setisplaying(!isplaying);
   };
   const toggleMute = () => {
@@ -109,81 +125,87 @@ const AudioCard = ({ doc, pat, age, date, id }) => {
           ref={audioElem}
           onTimeUpdate={onPlaying}
         />
-        <div className="audio-player-box">
-          <div className="audio-player-progress-bar-box">
-            <div
-              className="audio-player-progress-bar"
-              onClick={checkWidth}
-              ref={clickRef}
-            >
-              <div
-                className="audio-player-progress-fill"
-                style={{ width: `${currentSong.progress + "%"}` }}
-              ></div>
-            </div>
-          </div>
+        {disable ? (
+          <p className="loading-audio">Loading Audio ....</p>
+        ) : (
+          <>
+            <div className="audio-player-box">
+              <div className="audio-player-progress-bar-box">
+                <div
+                  className="audio-player-progress-bar"
+                  onClick={checkWidth}
+                  ref={clickRef}
+                >
+                  <div
+                    className="audio-player-progress-fill"
+                    style={{ width: `${currentSong.progress + "%"}` }}
+                  ></div>
+                </div>
+              </div>
 
-          <div className="controls">
-            <p className="audio-current-time">
-              {min}:{sec}
-            </p>
-            {isplaying ? (
-              <FaCirclePause
-                className="ctrl-icons playpause"
-                onClick={PlayPause}
-              />
-            ) : (
-              <FaPlayCircle
-                className="ctrl-icons playpause"
-                onClick={PlayPause}
-              />
-            )}
-            <div className="audio-player-volume-box">
-              <div>
-                {isMute ? (
-                  <IoVolumeMute
-                    className="ctrl-icons"
-                    style={{ margin: "4vh 2vh" }}
-                    onClick={toggleMute}
+              <div className="controls">
+                <p className="audio-current-time">
+                  {min}:{sec}
+                </p>
+                {isplaying ? (
+                  <FaCirclePause
+                    className="ctrl-icons playpause"
+                    onClick={PlayPause}
                   />
                 ) : (
-                  <AiFillSound
-                    className="ctrl-icons"
-                    style={{ margin: "4vh 2vh" }}
-                    onClick={toggleMute}
+                  <FaPlayCircle
+                    className="ctrl-icons playpause"
+                    onClick={PlayPause}
                   />
                 )}
-              </div>
+                <div className="audio-player-volume-box">
+                  <div>
+                    {isMute ? (
+                      <IoVolumeMute
+                        className="ctrl-icons"
+                        style={{ margin: "4vh 2vh" }}
+                        onClick={toggleMute}
+                      />
+                    ) : (
+                      <AiFillSound
+                        className="ctrl-icons"
+                        style={{ margin: "4vh 2vh" }}
+                        onClick={toggleMute}
+                      />
+                    )}
+                  </div>
 
-              <div
-                className="audio-player-volume-bar"
-                onClick={checkVolumeWidth}
-                ref={volref}
-              >
+                  <div
+                    className="audio-player-volume-bar"
+                    onClick={checkVolumeWidth}
+                    ref={volref}
+                  >
+                    <div
+                      className="audio-player-volume-fill"
+                      style={{ width: `${volumeProgress + "%"}` }}
+                    ></div>
+                  </div>
+                </div>
                 <div
-                  className="audio-player-volume-fill"
-                  style={{ width: `${volumeProgress + "%"}` }}
-                ></div>
+                  className="download-icon"
+                  style={{
+                    margin: "4vh 8vh",
+                    float: "right",
+                    position: "absolute",
+                    right: "1vh",
+                  }}
+                >
+                  <a
+                    href={`http://localhost:5000/tracks/details/${id}`}
+                    download="filename.mp3"
+                  >
+                    <MdOutlineFileDownload className="ctrl-icons" />
+                  </a>
+                </div>
               </div>
             </div>
-            <div
-              className="download-icon"
-              style={{
-                margin: "4vh 8vh",
-                float: "right",
-                position: "absolute",
-                right: "1vh",
-              }}
-            >
-              <a
-                href={`http://localhost:5000/tracks/details/${id}`}
-                download="filename.mp3"
-              >
-                <MdOutlineFileDownload className="ctrl-icons" />
-              </a>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

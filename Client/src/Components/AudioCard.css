@@ -124,3 +124,8 @@ a:visited {
     left: 18vh;
     margin-top: 4vh;
 }
+.loading-audio{
+    text-align: center;
+    color: yellow;
+    font-size: 1.5rem;
+}

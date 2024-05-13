@@ -45,4 +45,4 @@ npm start
 Technologies used in the project:
 
 1.   MERN
-2.   Multery + GridFS for Audio File Storage
+2.   Multer + GridFS for Audio File Storage
